@@ -1,6 +1,14 @@
 <?php
-        $weather = simplexml_load_file('http://w1.weather.gov/xml/current_obs/KROC.xml');
-        $temp = $weather->temp_f;
+    if (isset($_GET['code']))
+    {
+        $weathercode = $_GET['code'];
+    }
+    else
+    {
+        $weathercode = 'KROC';
+    }
+    $weather = simplexml_load_file('http://w1.weather.gov/xml/current_obs/'.$weathercode.'.xml');
+    $temp = $weather->temp_f;
 	//$temp = 200.0;
 	$im = imagecreatefrompng('colors.png');
 	if ($temp < 0)
@@ -25,7 +33,7 @@
 ?>
 <html>
 <head>
-<title>Rochester Weather</title>
+<title><?php echo $weathercode; ?> Weather</title>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
 <script type="text/JavaScript">
 <!--
